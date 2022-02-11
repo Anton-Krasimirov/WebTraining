@@ -1,0 +1,82 @@
+{% extends 'base/base.html' %}{# това е наследяване от посочения блок #}
+{% load departments_tags %}
+{% load increase_by %}
+{% load string_filters %} {# зареден къстъм филтър #}
+
+{% block content %}
+
+    <h1>{{ title }}  (original)</h1>  {# приемам от view-to #}
+    <h1>{{ title|lower }}  (lower)</h1>  {# приемам от view-to #}
+    <h1>{{ title|capfirst }}  (capfirst)</h1>  {# приемам от view-to #}
+    <h1>{{ title|capitalize }}  (capitalize)</h1>  {# това е къстъм филтър-а , трябва да се зареди (alt + enter#}
+    <h1>{{ 1| increase_by:1000 }}</h1>
+
+    <p>{{ description }}  (original)</p>
+    <p>{{ description|truncatewords:7 }}  (truncatewords)</p>
+    <p>{{ description|truncatewords:10 }}  (truncatewords)</p>
+    <p>{{ description|truncatechars:17 }}  (truncatechars)</p>
+    <p>{{ description|truncatechars:10 }}  (truncatechars)</p>
+    {#    <div>#}
+    {#        {{ employees }}#}
+    {#    </div>#}
+    {#    <div>#}
+    {#        {{ employees|join:', ' }}#}
+    {#    </div>#}
+    {#    <p>{{ department_names|join:', ' }}</p>#}
+    <div>
+        {% if number_1 < 200 %}
+            {{ number_1 }} is less than 200
+        {% elif number_1 == 200 %}
+            {{ number_1 }} is 200
+        {% else %}
+            {{ number_1 }} is greater than 200
+        {% endif %}
+    </div>
+    <div>
+        {% if number_2 < 200 %}
+            {{ number_2 }} is less than 200
+        {% elif number_2 == 200 %}
+            {{ number_2 }} is 200
+        {% else %}
+            {{ number_2 }} is greater than 200
+        {% endif %}
+    </div>
+    <div>
+        {% if number_3 < 200 %}
+            {{ number_3 }} is less than 200
+        {% elif number_3 == 200 %}
+            {{ number_3 }} is 200
+        {% else %}
+            {{ number_3 }} is greater than 200
+        {% endif %}
+    </div>
+
+    {% for number in numbers %}
+        <div>
+            {{ number }}--
+            {% if number < 200 %}
+                {{ number }} is less than 200
+            {% elif number == 200 %}
+                {{ number }} is 200
+            {% else %}
+                {{ number }} is greater than 200
+            {% endif %}
+        </div>
+    {% endfor %}
+    <ul>
+        {% for employee in employees %}
+            {% ifchanged employee.department.name %} {# ifchanged извейда заданието ако е имало промяна  #}
+                <li>---</li>
+            {% endifchanged %}
+            <li>
+                {{ employee.first_name }} {{ employee.last_name }}
+                {{ employee.department.name }}
+                (<i>{{ employee.get_job_title_display }}</i> in <strong>{{ employee.department.name }}</strong>)
+            </li>
+        {% endfor %}
+    </ul>
+    {{ csrf_token }}
+
+    {% departments_list %}
+
+{% endblock %}

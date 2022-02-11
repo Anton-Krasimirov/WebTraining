@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+{#    <link rel="stylesheet" href="/static/main.css>">#} {# wrong wey #}
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    {# scripts before page load (отнася се за статичните файлове, къде се поставят) #}
+</head>
+<body>
+{# scripts befor content load (отнася се за статичните файлове, къде се поставят) #}
+<ul>
+    <li>
+        <a href="{% url 'go to home' %}">Go to HOME</a>
+    </li>
+    <li>
+        <a href="{% url 'templates index' %}">Go to Templates</a>
+    </li>
+</ul>
+{% block content %}
+{% endblock %}
+{# scripts after content/page load (отнася се за статичните файлове, къде се поставят) #}
+</body>
+</html>
