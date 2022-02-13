@@ -22,4 +22,5 @@ urlpatterns = [
     path('', home, name='index'),
     path('go_to_home/', go_to_home, name='go to home'),
     path('department/', include('project2.employees.urls')),
+    path('templates/', include('project2.template_examples.urls')),
 ]

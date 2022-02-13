@@ -7,6 +7,7 @@ from project2.employees.models import Employee, Department
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ('id', 'first_name', 'last_name', 'job_title', 'companies')
 
+
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
     pass
