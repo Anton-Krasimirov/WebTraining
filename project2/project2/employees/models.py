@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.core import validators
 
 
 class AuditEntity(models.Model):
@@ -37,7 +38,7 @@ class Employee(models.Model):
                                  default='NO NAME')  # null i blank вървят заедно в този случай plank
     # дава възможносд да слагаме празен стринг и да го маркира като null
 
-    egn = models.CharField(max_length=10, unique=True, verbose_name='EGN', )
+    egn = models.CharField(max_length=10, unique=True, verbose_name='EGN', validators=(validators.MinLengthValidator(10),))
 
     job_title = models.IntegerField(choices=(
         (SOFTWARE_DEVELOPER, 'Software Developer'),
@@ -51,6 +52,8 @@ class Employee(models.Model):
     )
 
     department = models.ForeignKey(Department, on_delete=models.CASCADE,)  # миграция един към много
+
+    image = models.ImageField(null=True, blank=True, upload_to='profiles')
 
     class Meta:
         ordering = ('companies', '-first_name',)# сортираме във администрацията

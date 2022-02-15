@@ -15,11 +15,17 @@
 {# тък се поставят scripts before content losd #}
 <ul>
     <li>
-        <a href="{% url 'go to home' %}">Go to home</a>
+        <a href="{% url 'index' %}">Go to home</a>
     </li>
     <li>
-        <a href="{% url 'templates index' %}">Go to Templates</a>
+        <a href="{% url 'create employee' %}">Create employee</a>
     </li>
+{#    <li>#}
+{#        <a href="{% url 'go to home' %}">Go to home</a>#}
+{#    </li>#}
+{#    <li>#}
+{#        <a href="{% url 'templates index' %}">Go to Templates</a>#}
+{#    </li>#}
 </ul>
 {% block content %}  {# тези два реда реда правят наследяването #}
 {% endblock %}       {# кода от този фаил ще се бояви при всички които го наследяват #}

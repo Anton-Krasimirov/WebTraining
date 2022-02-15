@@ -1,7 +1,37 @@
 {% extends 'base/base.html' %} {#  наследявам base/base.html #}
 
 {% block content %}{# взимам блока от код от base/base.html #}
+    <h1>The Employees App!</h1>
 
+    <h2>Bound(Django) form</h2>
+
+    <form method="post" action="{% url 'create employee' %}"> {# взима инфото от потребителя чрез view-то create employee #}
+        {{ employee_form }} {# визуализирам формата от view-то #}
+
+{#        <button>Save</button>{# Mandatory #}
+    </form>
+{##}
+{#    <h2>Unbound(Pure  HTML) form</h2>#}
+{#    <form>#}
+{#        <input type="Text" required > {#  в каква форма да ни подава инфо потребиреля#}
+{#        <input type="number" required>#}
+{#        <input type="range" required>#}
+{#        <input type="email" required>#}
+{#        <select>#}
+{#            <option>One</option>#}
+{#            <option>Two</option>#}
+{#            <option>Three</option>#}
+{#        </select>#}
+{#        <input type="checkbox"/>#}
+{#        <input type="checkbox"/>#}
+{#        <input type="checkbox"/>#}
+{#        <input type="checkbox"/>#}
+{#        <input type="radio" name="radios">#}
+{#        <input type="radio" name="radios">#}
+{#        <input type="radio" name="radios">#}
+{#        <input type="radio" name="radios">#}
+{#        <button>Save</button>#}
+{#    </form>#}
 
 {#<!DOCTYPE html>#}
 {#<html lang="en">#}
@@ -18,14 +48,14 @@
 {#        <a href="{% url 'templates index' %}">Go to Templates</a>{# поле в главната страница , което ме пренасочва #}
 {#    </li>#}
 {#</ul>#}
-<h1>It works</h1>
-<h2>The number is {{ number }}</h2>
-<ul>
-    {% for number in numbers %}
-        <li>Number is {{ number }}</li>
-    {% endfor %}
-</ul>
-
+{#<h1>It works</h1>#}
+{#<h2>The number is {{ number }}</h2>#}
+{#<ul>#}
+{#    {% for number in numbers %}#}
+{#        <li>Number is {{ number }}</li>#}
+{#    {% endfor %}#}
+{#</ul>#}
+{##}
 {#</body>#}
 {#</html>#}
 {% endblock %}{# затварям блока #}

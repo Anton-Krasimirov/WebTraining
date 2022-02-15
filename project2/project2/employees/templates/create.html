@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %} {#  наследявам base/base.html #}
+
+{% block content %}{# взимам блока от код от base/base.html #}
+    <h1>The Employees App!</h1>
+
+
+    <form method="post" action="{% url 'create employee' %}">{% csrf_token %} {# взима инфото от потребителя чрез view-то create employee #}
+        {{ employee_form }} {# визуализирам формата от view-то #}
+{#        <h3>Manual:</h3>#}
+{#        {{ employee_form.age.errors }}#}
+{#        {% for err in employee_form.age.errors %}#}
+{#            {{ err }}#}
+{#        {% endfor %}#}
+        <div>
+            {% for field, errors in employee_form.errors.items %}
+                {{ field }}:
+                {% for err in errors %}
+                    {{ err }}
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <button>Save me</button>{# Mandatory #}
+    </form>
+
+    <form method="get" action="{% url 'create employee' %}">{% csrf_token %}
+        {{ employee_order_form }}
+        <button>Order</button>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Job title</th>
+                <th scope="col">Company</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+                <tr>
+                    <td>
+                        {% if employee.image %}
+                            <img height="40" src="{{ employee.image.url }}"/>
+                        {% else %}
+                            NO image
+                        {% endif %}
+                    </td>
+                    <td>{{ employee.first_name }}</td>
+                    <td>{{ employee.last_name }}</td>
+                    <td>{{ employee.job_title }}</td>
+                    <td>{{ employee.companies }}</td>
+                    <td><a href="{% url 'edit employee' employee.pk %}">Edit</a></td>{% csrf_token %}
+                </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+{% endblock %}
