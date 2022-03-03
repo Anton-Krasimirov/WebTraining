@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block page_content %}
+
+    <body>
+        <!--navigation bar-->
+        <header>
+            <nav>
+                <ul>
+                    <li class="img"><img src="{% static 'images/note.png' %}" /></li>
+                    <li><a href="/">Notes</a></li>
+                    <li class="right">
+                        <a href="/add">Add Note</a>
+                        <a href="/profile">Profile</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <!--end navigation bar-->
+
+        <h1>My Notes</h1>
+
+
+        <h2>There are no notes.</h2>
+        {% if notes %}
+            {% for note in notes %}
+                <!--notes container-->
+                <div class="note-container">
+                    <h2>{{ note.title }}</h2>
+{#                    <h2>Today's Tasks <img src="https://www.freeiconspng.com/thumbs/tasks-icon/tasks-icon-9.png" /></h2>#}
+
+                    <div class="right">
+                        <a class="button details" href="{% url 'note details' note.pk %}">Details</a>
+                        <a class="button edit" href="{% url 'edit note' note.pk %}">Edit</a>
+                        <a class="button delete" href="{% url 'delete note' note.pk %}">Delete</a>
+                    </div>
+                </div>
+        {##}
+        {#        <div class="note-container">#}
+        {#            <h2>Python Web Basics <img src="https://about.softuni.bg/Content/images/home-page/softuni-logo.svg" /></h2>#}
+        {##}
+        {#            <div class="right">#}
+        {#                <a class="button details" href="/details/4">Details</a>#}
+        {#                <a class="button edit" href="/edit/4">Edit</a>#}
+        {#                <a class="button delete" href="/delete/4">Delete</a>#}
+        {#            </div>#}
+        {#        </div>#}
+            {% endfor %}
+        {% endif %}
+        <!--end notes container-->
+
+        <footer>
+            <div>Python Web Basics Exam @SoftUni</div>
+        </footer>
+    </body>
+{% endblock %}

@@ -214,4 +214,4 @@ def edit_employee(request, pk):
         'employee_form': employee_form
     }
 
-    return  render(request, 'edit.html', context)
+    return render(request, 'edit.html', context)

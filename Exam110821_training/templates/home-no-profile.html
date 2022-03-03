@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+
+{% block page_content %}
+
+<body>
+    <div id="container">
+        <header id="site-header">
+
+            <!-- Navigation -->
+            <nav class="navbar">
+                <section class="navbar-dashboard">
+                    <a href="#">Dashboard</a>
+                </section>
+            </nav>
+        </header>
+
+     <!-- No Profile Page -->
+        <section id="register-page" class="register">
+            <form id="register-form" action="{% url 'create profile' %}" method="Post">
+{#                {{ form }}#}
+                {% csrf_token %}
+                <fieldset>
+                    <legend>Profile Form</legend>
+                    <label for="first-name">First Name</label>
+                    {{ form.first_name }}
+{#                    <input type="text" name="first_name" maxlength="30" required="" id="first-name" placeholder="First Name">#}
+                    <label for="last-name">Last name</label>
+                    {{ form.last_name }}
+{#                    <input type="text" name="last_name" maxlength="30" required="" id="last-name" placeholder="Last Name">#}
+                    <label for="image-url">Image URL</label>
+                    {{ form.image_url }}
+{#                    <input type="url" name="image_url" maxlength="200" required="" id="image-url" placeholder="URL">#}
+                    <input class="button submit" type="submit" value="Enter">
+                </fieldset>
+            </form>
+        </section>
+
+        <footer id="site-footer">
+            <p>Python Web Basics Retake Exam @SoftUni</p>
+        </footer>
+    </div>
+</body>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+{% block page_content %}
+
+<body>
+    <div id="container">
+        <header id="site-header">
+
+            <!-- Navigation -->
+            <nav class="navbar">
+                <section class="navbar-dashboard">
+                    <a href="#">Dashboard</a>
+                    <div id="user">
+                        <span>Welcome, {{ profile.first_name }}</span>
+                        <a class="button" href="{% url 'book add' %}">Add Book</a>
+                        <a class="button" href="{% url 'profile' %}">Profile</a>
+                    </div>
+                </section>
+            </nav>
+        </header>
+
+        <!-- Dashboard Page-->
+        {% if not books %}
+            <section id="dashboard-page" class="dashboard">
+                <h1>Dashboard</h1>
+                 <!-- Display paragraph: If the user doesn't have any books  -->
+                <p class="no-books">No books in database!</p>
+            </section>
+{#        <footer id="site-footer">#}
+{#            <p>Python Web Basics Retake Exam @SoftUni</p>#}
+{#        </footer>#}
+        {% else %}
+            {% for book in books %}
+                {{ book }}
+            {% endfor %}
+
+{#        <section id="dashboard-page" class="dashboard">#}
+{#            <!-- Display ul: with list-items for every books if any -->#}
+{#            <ul class="my-books-list">#}
+
+{#            </ul>#}
+{#        </section>#}
+        {% endif %}
+        <footer id="site-footer">
+            <p>Python Web Basics Retake Exam @SoftUni</p>
+        </footer>
+    </div>
+</body>
+
+{% endblock %}

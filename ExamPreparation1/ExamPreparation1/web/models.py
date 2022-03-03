@@ -79,8 +79,11 @@ class Profile(models.Model):
 class Expense(models.Model):
     title = models.CharField(max_length=30, )
 
-    image = models.URLField()
+    image = models.URLField()# ако поставим в скобите verbose_name='Link to Image' ще го визуализира по зададения в кавичките
 
     description = models.TextField(null=True, blank=True, )
 
     price = models.FloatField()
+
+    class Meta:
+        ordering = ('title', 'price',)# сортира expenses да не ги разменя и да не стане грешка при edit

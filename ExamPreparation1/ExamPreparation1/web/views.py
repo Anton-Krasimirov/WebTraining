@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
-from ExamPreparation1.web.forms import CreateProfileForm, EditProfileForm
+from ExamPreparation1.web.forms import CreateProfileForm, EditProfileForm, DeleteProfileForm, CreateExpenseForm, \
+    EditExpenseForm, DeleteExpenseForm
 from ExamPreparation1.web.models import Profile, Expense
 
 
@@ -16,19 +17,81 @@ def show_index(request):
     if not profile:
         return redirect('create profile')
 
-    return render(request, 'home-with-profile.html')
+    expenses = Expense.objects.all()
+    budget_left = profile.budget - sum(e.price for e in expenses)
+
+    content = {
+        'profile': profile,
+        'expenses': expenses,
+        'budget_left': budget_left,
+    }
+
+    return render(request, 'home-with-profile.html', content)
+
+
+def create_profile(request):
+    if request.method == 'POST':
+        form = CreateProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('show index')
+    else:
+        form = CreateProfileForm()
+
+    context = {
+        'form': form,
+        'no_profile': True,# за да може Profile  да не се показва когато няма още наличен профил
+    }
+    return render(request, 'home-no-profile.html', context)
 
 
 def create_expense(request):
-    return render(request, 'expense-create.html')
+    if request.method == 'POST':
+        form = CreateExpenseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('show index')
+    else:
+        form = CreateExpenseForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'expense-create.html', context)
 
 
 def edit_expense(request, pk):
-    return render(request, 'expense-edit.html')
+    expense = Expense.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = EditExpenseForm(request.POST, instance=expense)
+        if form.is_valid():
+            form.save()
+            return redirect('show index')
+    else:
+        form = EditExpenseForm(instance=expense)
+
+    context = {
+        'form': form,
+        'expense': expense,
+    }
+    return render(request, 'expense-edit.html', context)
 
 
 def delete_expense(request, pk):
-    return render(request, 'expense-delete.html')
+    expense = Expense.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = DeleteExpenseForm(request.POST, instance=expense)
+        if form.is_valid():
+            form.save()
+            return redirect('show index')
+    else:
+        form = DeleteExpenseForm(instance=expense)
+
+    context = {
+        'form': form,
+        'expense': expense,
+    }
+    return render(request, 'expense-delete.html', context)
 
 
 def show_profile(request):
@@ -41,21 +104,6 @@ def show_profile(request):
         'budget_left': budget_left,
     }
     return render(request, 'profile.html', context)
-
-
-def create_profile(request):
-    if request.method == 'POST':
-        form = CreateProfileForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('show index')
-    else:
-        form = CreateProfileForm()
-    context = {
-        'form': form,
-        'no_profile': True,# за да може Profile  да не се показва когато няма още наличен профил
-    }
-    return render(request, 'home-no-profile.html', context)
 
 
 def profile_edit(request):
@@ -74,4 +122,15 @@ def profile_edit(request):
 
 
 def delete_profile(request):
-    return render(request, 'profile-delete.html')
+    profile = get_profile()# взимаме профила с функцията най горе
+    if request.method == 'POST':
+        form = DeleteProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('show index')
+    else:
+        form = DeleteProfileForm(instance=profile)
+    context = {
+        'form': form,
+    }
+    return render(request, 'profile-delete.html', context)

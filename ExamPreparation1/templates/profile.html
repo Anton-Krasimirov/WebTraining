@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load static %}
 
 {% block page_content %}
     <!-- Your Profile Data -->
@@ -8,12 +9,16 @@
             <!-- Full Name -->
             <h2>{{ profile.full_name}}</h2>
             <!-- Profile Image -->
-            <img src="/static/images/user.png" alt="profile pic">
+            {% if profile.image %}
+                <img src="{{ profile.image.url }}" alt="profile pic">
+            {% else %}
+                 <img src="{% static 'images/user.png' %}" alt="profile pic">
+            {% endif %}
             <!-- Profile Description -->
             <!-- Total Items Bought -->
             <p>Total Items Bought: {{ expenses_count }}</p>
             <!-- Budget Left -->
-            <p>Budget Left: {{ budget_left }}</p>
+            <p>Budget Left: {{ budget_left|floatformat:2 }}$</p>
             <div class="right">
                 <!-- Edit Profile Button -->
                 <a class="button edit" href="{% url 'profile edit' %}">Edit Profile</a>
