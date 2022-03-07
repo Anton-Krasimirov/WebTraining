@@ -72,10 +72,10 @@ class EditExpenseForm(forms.ModelForm):
 
 
 class DeleteExpenseForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):# тази функция прави полетата във формата да се четат само, да не могат да се пишат
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for _, field in self.fields.items():
-            field.widget.attrs['readonly'] = 'readonly'
+            field.widget.attrs['readonly'] = 'readonly'# тази функция прави полетата във формата да се четат само, да не могат да се пишат
             # field.widget.attrs['disabled'] = 'disabled'
             # field.required = False
 

@@ -5,7 +5,7 @@ from Exam270222_2.MyMusic.models import Profile, Album
 
 
 class CreateProfile(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):# за да вземе от инита всичко , без да знам какво и как идва ПРЕДПОЛАГАМ
         super().__init__(*args, **kwargs)
 
     class Meta:
