@@ -25,7 +25,7 @@ def show_profile(request):
 
     return render(request, 'profile_details.html', context)
 
-
+# тази функция я викам на всеки return  по-долу, другия вариянт е закоментиран отдолу
 def profile_action(request, form_class, success_url, instance, template_name):
     if request.method == 'POST':
         form = form_class(request.POST, instance=instance)
@@ -41,7 +41,9 @@ def profile_action(request, form_class, success_url, instance, template_name):
 
     return render(request, template_name, context)
 
-
+''' Profile() прави празен профил за да го предадем на form във profile_action, за да може кодато се рендерира template_name
+да се покаже страницата с празни полета, попълвайки ги се връща на същото вю , самоче с пост и качвайкисе пак вав
+ функцията в request.POST има вече стйности от полетат които са попълнени '''
 def create_profile(request):
     return profile_action(request, CreateProfileForm, 'index', Profile(), 'profile_create.html')
 

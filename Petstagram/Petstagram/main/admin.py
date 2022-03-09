@@ -1,8 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
-from django.contrib import admin
-
 from petstagram.main.models import Profile, Pet, PetPhoto
 
 # за да създаде в администрацията формички за създаване , добавяме ги в ProfileAdmin като inlines
