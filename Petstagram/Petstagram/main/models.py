@@ -103,9 +103,9 @@ class Pet(models.Model):
     date_of_birth = models.DateField(
         null=True,
         blank=True,
-        # validators=(
-        #     MinDateValidator(),
-        # )
+        validators=(
+            # MinDateValidator(),
+        )
     )
 
     # One-to-one relations
